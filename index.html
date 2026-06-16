@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aperçu DSI Juin 2026</title>
+<style>
+body{font-family:Arial,sans-serif;margin:0;background:#f4f6f8}
+header{background:#00536A;color:white;padding:25px;text-align:center}
+.container{max-width:1200px;margin:auto;padding:20px}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
+.card{background:white;padding:20px;border-radius:10px;text-align:center;cursor:pointer;box-shadow:0 2px 5px rgba(0,0,0,.15)}
+.card:hover{transform:translateY(-2px)}
+h2{margin:0}
+table{width:100%;border-collapse:collapse;background:white;margin-top:20px}
+th,td{border:1px solid #ddd;padding:10px}
+th{background:#00536A;color:white}
+.badge{padding:4px 8px;border-radius:15px;color:white;font-size:12px}
+.encours{background:#0083cb}
+.termine{background:#00a897}
+.risque{background:#d54d77}
+tr:nth-child(even){background-color: #f2f2f2;}
+tr:hover{background-color: #e6f7ff;}
+#searchInput{padding:10px;width:100%;margin-bottom:20px;border-radius:5px;border:1px solid #ddd;}
+</style>
+</head>
+<body>
+<header>
+<h1>DSI Juin 2026 : Vos projets !</h1>
+<p>Cliquez sur un indicateur pour filtrer les projets</p>
+</header>
+
+<div class="container">
+
+<input type="text" id="searchInput" placeholder="Rechercher un projet..." onkeyup="searchProjects()">
+
+<div class="cards">
+<div class="card" onclick="filterProjects('all','Tous les projets')"><h2>24</h2><p>Projets</p></div>
+<div class="card" onclick="filterProjects('termine','Projets terminés')"><h2 id="termineCount">8</h2><p>Terminés</p></div>
+<div class="card" onclick="filterProjects('encours','Projets en cours')"><h2 id="encoursCount">14</h2><p>En cours</p></div>
+<div class="card" onclick="filterProjects('risque','Projets à surveiller')"><h2 id="risqueCount">2</h2><p>À surveiller</p></div>
+</div>
+
+<h2 id="title" style="margin-top:30px;">Tous les projets</h2>
+
+<table id="projectsTable">
+<thead>
+<tr>
+<th>Domaine</th>
+<th>Projet</th>
+<th>Statut</th>
+<th>Échéance</th>
+</tr>
+</thead>
+<tbody>
+<tr data-status="encours"><td>DF</td><td>Dématérialisation des factures</td><td><span class="badge encours">En cours</span></td><td>Sept 2026</td></tr>
+<tr data-status="encours"><td>DF</td><td>EBT</td><td><span class="badge encours">En cours</span></td><td>Avr 2026</td></tr>
+<tr data-status="termine"><td>DF</td><td>Servantissimo</td><td><span class="badge termine">Terminé</span></td><td>-</td></tr>
+<tr data-status="risque"><td>DF</td><td>Interface GED-Toshiba</td><td><span class="badge risque">À surveiller</span></td><td>Nov 2026</td></tr>
+<tr data-status="risque"><td>DF</td><td>Ecritures miroirs</td><td><span class="badge risque">À surveiller</span></td><td>-</td></tr>
+<tr data-status="termine"><td>DF</td><td>Interface Gestionnaire vers portail finance</td><td><span class="badge termine">Terminé</span></td><td>Nov 2026</td></tr>
+<tr data-status="termine"><td>DRH</td><td>Mise à jour du moteur de paie</td><td><span class="badge termine">Terminé</span></td><td>Jan 2026</td></tr>
+<tr data-status="encours"><td>DF</td><td>Arrêt de la GED Toshiba</td><td><span class="badge encours">En cours</span></td><td>Déc 2026</td></tr>
+<tr data-status="encours"><td>DF</td><td>Migration Azure</td><td><span class="badge encours">En cours</span></td><td>2026</td></tr>
+<tr data-status="encours"><td>DF</td><td>WinAPF / Antares</td><td><span class="badge encours">En cours</span></td><td>-</td></tr>
+<tr data-status="termine"><td>DF</td><td>Talentia</td><td><span class="badge termine">Terminé</span></td><td>-</td></tr>
+<tr data-status="encours"><td>DF</td><td>Migration Gestionnaire</td><td><span class="badge encours">En cours</span></td><td>Déc 2026</td></tr>
+<tr data-status="encours"><td>DRH</td><td>GTA</td><td><span class="badge encours">En cours</span></td><td>En re-définition</td></tr>
+<tr data-status="termine"><td>DRH</td><td>Coffre Fort électronique</td><td><span class="badge termine">Terminé</span></td><td>Jan 2026</td></tr>
+<tr data-status="encours"><td>DRH</td><td>Roadmap SIRH</td><td><span class="badge encours">En cours</span></td><td>Juin 2026</td></tr>
+<tr data-status="encours"><td>DRH</td><td>HR4YOU</td><td><span class="badge encours">En cours</span></td><td>2026</td></tr>
+<tr data-status="termine"><td>DRH</td><td>Module ATIJ</td><td><span class="badge termine">Terminé</span></td><td>À définir</td></tr>
+<tr data-status="termine"><td>DRH</td><td>MAJ DSN</td><td><span class="badge termine">Terminé</span></td><td>Jan 2026</td></tr>
+<tr data-status="termine"><td>DRH</td><td>Maille nominative</td><td><span class="badge termine">Terminé</span></td><td>Jan 2026</td></tr>
+<tr data-status="encours"><td>DRH</td><td>Edition des contrats</td><td><span class="badge encours">En cours</span></td><td>-</td></tr>
+</tbody>
+</table>
+
+</div>
+
+<script>
+function filterProjects(status,title){
+ document.getElementById('title').innerText=title;
+ document.querySelectorAll('#projectsTable tbody tr').forEach(row=>{
+   row.style.display=(status==='all'||row.dataset.status===status)?'':'none';
+ });
+}
+
+function searchProjects() {
+  const input = document.getElementById('searchInput');
+  const filter = input.value.toUpperCase();
+  const rows = document.querySelectorAll('#projectsTable tbody tr');
+
+  rows.forEach(row => {
+    const projectName = row.cells[1].textContent.toUpperCase();
+    if (projectName.includes(filter)) {
+      row.style.display = '';
+    } else {
+      row.style.display = 'none';
+    }
+  });
+}
+
+// Mettre à jour les compteurs de projets
+const termineCount = document.querySelectorAll('#projectsTable tbody tr[data-status="termine"]').length;
+const encoursCount = document.querySelectorAll('#projectsTable tbody tr[data-status="encours"]').length;
+const risqueCount = document.querySelectorAll('#projectsTable tbody tr[data-status="risque"]').length;
+
+document.getElementById('termineCount').innerText = termineCount;
+document.getElementById('encoursCount').innerText = encoursCount;
+document.getElementById('risqueCount').innerText = risqueCount;
+</script>
+
+</body>
+</html>
