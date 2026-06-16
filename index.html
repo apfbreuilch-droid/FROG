@@ -1,115 +1,521 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Aperçu DSI Juin 2026</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le monde des grenouilles — Formation avec Christelle FROG</title>
+<meta name="description" content="Formation « Le monde des grenouilles » animée par Christelle FROG le 7 septembre 2026 à Pessac : biologie, habitats, communication et conservation des amphibiens.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
-body{font-family:Arial,sans-serif;margin:0;background:#f4f6f8}
-header{background:#00536A;color:white;padding:25px;text-align:center}
-.container{max-width:1200px;margin:auto;padding:20px}
-.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}
-.card{background:white;padding:20px;border-radius:10px;text-align:center;cursor:pointer;box-shadow:0 2px 5px rgba(0,0,0,.15)}
-.card:hover{transform:translateY(-2px)}
-h2{margin:0}
-table{width:100%;border-collapse:collapse;background:white;margin-top:20px}
-th,td{border:1px solid #ddd;padding:10px}
-th{background:#00536A;color:white}
-.badge{padding:4px 8px;border-radius:15px;color:white;font-size:12px}
-.encours{background:#0083cb}
-.termine{background:#00a897}
-.risque{background:#d54d77}
-tr:nth-child(even){background-color: #f2f2f2;}
-tr:hover{background-color: #e6f7ff;}
-#searchInput{padding:10px;width:100%;margin-bottom:20px;border-radius:5px;border:1px solid #ddd;}
+  :root{
+    --etang:#1F3D2E;     /* étang profond — texte, fonds sombres */
+    --nenuphar:#3F6B45;  /* nénuphar — vert principal, boutons */
+    --mousse:#8FAE7C;    /* mousse tendre — accent clair */
+    --creme:#F6F2E7;     /* roseau crème — fond principal */
+    --dore:#C28F2C;      /* œil doré — accent décoratif uniquement */
+    --brume:#234244;     /* brume du soir — variation de fond sombre */
+    --blanc:#FFFFFF;
+
+    --font-display:"Fraunces", Georgia, serif;
+    --font-body:"Work Sans", system-ui, -apple-system, Segoe UI, sans-serif;
+    --font-mono:"IBM Plex Mono", "Courier New", monospace;
+
+    --rayon:14px;
+    --rayon-pilule:999px;
+    --ombre: 0 8px 24px rgba(31,61,46,0.12);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  body{
+    margin:0;
+    font-family:var(--font-body);
+    background:var(--creme);
+    color:var(--etang);
+    line-height:1.65;
+    font-size:1rem;
+  }
+
+  h1,h2,h3{font-family:var(--font-display); margin:0 0 0.5em 0; line-height:1.15;}
+  p{margin:0 0 1em 0;}
+  a{color:inherit;}
+
+  img{max-width:100%; display:block;}
+
+  /* --- Accessibilité : lien d'évitement --- */
+  .skip-link{
+    position:absolute; left:-9999px; top:0;
+    background:var(--dore); color:var(--etang);
+    padding:0.75em 1.25em; font-weight:600; border-radius:0 0 8px 0;
+    z-index:1000;
+  }
+  .skip-link:focus{left:0;}
+
+  :focus-visible{
+    outline:none;
+    box-shadow:0 0 0 2px var(--creme), 0 0 0 5px var(--etang);
+    border-radius:4px;
+  }
+
+  .conteneur{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 1.5rem;
+  }
+
+  .eyebrow{
+    font-family:var(--font-mono);
+    font-size:0.8rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--nenuphar);
+    display:flex;
+    align-items:center;
+    gap:0.6em;
+    margin-bottom:0.8em;
+  }
+  .eyebrow::before{
+    content:"";
+    width:10px; height:10px; border-radius:50%;
+    background:var(--dore);
+    flex-shrink:0;
+  }
+  .eyebrow--clair{color:var(--mousse);}
+
+  /* --- En-tête / hero --- */
+  .hero{
+    position:relative;
+    background:linear-gradient(160deg, var(--etang) 0%, var(--brume) 100%);
+    color:var(--creme);
+    overflow:hidden;
+    padding:2.5rem 0 3rem;
+  }
+  .hero__inner{
+    position:relative;
+    z-index:2;
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 1.5rem;
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:2rem;
+    align-items:center;
+  }
+  .hero__brand{
+    display:flex;
+    align-items:center;
+    gap:0.75rem;
+    margin-bottom:1.5rem;
+  }
+  .hero__logo{
+    height:48px; width:auto;
+    border-radius:8px;
+    background:rgba(255,255,255,0.08);
+  }
+  .hero__brand-name{
+    font-family:var(--font-mono);
+    font-size:0.85rem;
+    color:var(--mousse);
+  }
+  .hero__title{
+    font-size:clamp(2.1rem, 5vw, 3.4rem);
+    font-weight:700;
+    color:var(--creme);
+  }
+  .hero__tagline{
+    font-size:1.15rem;
+    max-width:34ch;
+    color:#E4E9DE;
+  }
+  .hero__meta{
+    display:flex;
+    gap:1.75rem;
+    margin:1.5rem 0;
+    flex-wrap:wrap;
+  }
+  .hero__meta div{display:flex; flex-direction:column;}
+  .hero__meta dt{
+    font-family:var(--font-mono);
+    font-size:0.72rem;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--mousse);
+  }
+  .hero__meta dd{margin:0.15em 0 0 0; font-weight:600; font-size:1.05rem;}
+
+  .hero__pond{
+    width:100%;
+    height:auto;
+    max-height:320px;
+  }
+  .ripple{fill:none; stroke:var(--dore); stroke-width:1.6; transform-box:fill-box; transform-origin:center;}
+  .ripple--1{animation:ondule 3.6s ease-out infinite;}
+  .ripple--2{animation:ondule 3.6s ease-out infinite; animation-delay:0.6s;}
+  .ripple--3{animation:ondule 3.6s ease-out infinite; animation-delay:1.2s;}
+  @keyframes ondule{
+    0%{opacity:0.7; transform:scale(0.85);}
+    100%{opacity:0; transform:scale(1.25);}
+  }
+
+  /* --- Bouton --- */
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:0.5em;
+    padding:0.85em 1.6em;
+    border-radius:var(--rayon-pilule);
+    font-weight:600;
+    text-decoration:none;
+    border:2px solid transparent;
+    transition:transform 0.15s ease, background 0.15s ease;
+    font-size:1rem;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn--primary{background:var(--dore); color:var(--etang);}
+  .btn--primary:hover{background:#D9A23A;}
+  .btn--telecharger{background:var(--nenuphar); color:var(--blanc);}
+  .btn--telecharger:hover{background:var(--etang);}
+
+  /* --- Navigation interne --- */
+  .page-nav{
+    background:var(--creme);
+    border-bottom:1px solid rgba(31,61,46,0.12);
+    position:sticky;
+    top:0;
+    z-index:50;
+  }
+  .page-nav__inner{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 1.5rem;
+    display:flex;
+    flex-wrap:wrap;
+    gap:0.4rem 1.5rem;
+  }
+  .page-nav a{
+    display:block;
+    padding:0.9rem 0;
+    font-weight:600;
+    font-size:0.92rem;
+    text-decoration:none;
+    color:var(--etang);
+    white-space:nowrap;
+    border-bottom:3px solid transparent;
+  }
+  .page-nav a:hover{border-bottom-color:var(--dore);}
+
+  /* --- Sections génériques --- */
+  .section{padding:4rem 0;}
+  .section--sombre{background:var(--brume); color:var(--creme);}
+  .section--teinte{background:#EDE8D8;}
+  .section h2{font-size:clamp(1.6rem, 3.4vw, 2.3rem); max-width:36ch;}
+  .section--sombre h2{color:var(--creme);}
+  .section-intro{max-width:60ch; font-size:1.08rem;}
+
+  /* --- Accordéon programme --- */
+  .accordion{display:flex; flex-direction:column; gap:0.9rem; margin-top:2rem;}
+  .accordion__item{
+    background:var(--blanc);
+    border-radius:var(--rayon);
+    box-shadow:var(--ombre);
+  }
+  .accordion__item:not([open]) summary{border-radius:var(--rayon);}
+  .accordion__item[open] summary{border-radius:var(--rayon) var(--rayon) 0 0;}
+  .accordion__content{border-radius:0 0 var(--rayon) var(--rayon);}
+  .accordion__item summary{
+    list-style:none;
+    cursor:pointer;
+    padding:1.1rem 1.4rem;
+    display:flex;
+    align-items:center;
+    gap:1rem;
+    font-weight:600;
+    font-size:1.05rem;
+  }
+  .accordion__item summary::-webkit-details-marker{display:none;}
+  .accordion__num{
+    font-family:var(--font-mono);
+    background:var(--nenuphar);
+    color:var(--blanc);
+    border-radius:8px;
+    padding:0.3em 0.6em;
+    font-size:0.85rem;
+    flex-shrink:0;
+  }
+  .accordion__chevron{margin-left:auto; transition:transform 0.2s ease; color:var(--dore); font-size:1.2rem;}
+  .accordion__item[open] .accordion__chevron{transform:rotate(180deg);}
+  .accordion__content{padding:0 1.4rem 1.3rem 4.1rem; font-size:1rem;}
+
+  /* --- Vidéo formateur --- */
+  .video-frame{
+    position:relative;
+    width:100%;
+    max-width:760px;
+    aspect-ratio:16/9;
+    box-shadow:var(--ombre);
+    border-radius:var(--rayon);
+    margin-top:1.5rem;
+  }
+  .video-frame iframe{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    border:0;
+    border-radius:var(--rayon);
+  }
+
+  /* --- Lieu / carte --- */
+  .lieu-grid{
+    display:grid;
+    grid-template-columns:0.9fr 1.1fr;
+    gap:2.5rem;
+    margin-top:2rem;
+    align-items:start;
+  }
+  .lieu-info p{font-size:1.05rem;}
+  .map-frame{
+    width:100%;
+    aspect-ratio:4/3;
+    box-shadow:var(--ombre);
+  }
+  .map-frame iframe{width:100%; height:100%; border:0; border-radius:var(--rayon);}
+
+  /* --- Téléchargements --- */
+  .telechargements-zone{margin-top:1.8rem; display:flex; flex-direction:column; gap:1rem; align-items:flex-start;}
+  .eco-note{font-size:0.9rem; color:var(--nenuphar); font-style:italic;}
+
+  /* --- Pied de page --- */
+  .footer{background:var(--etang); color:var(--creme); padding:3rem 0 2rem;}
+  .footer__inner{
+    max-width:1080px; margin:0 auto; padding:0 1.5rem;
+    display:grid; grid-template-columns:1fr 1fr; gap:2rem;
+  }
+  .footer__heading{
+    font-family:var(--font-mono); text-transform:uppercase; letter-spacing:0.08em;
+    font-size:0.78rem; color:var(--mousse); margin-bottom:0.6em;
+  }
+  .footer a{text-decoration:underline; text-decoration-color:var(--dore);}
+  .footer__bas{
+    max-width:1080px; margin:2rem auto 0; padding:1.2rem 1.5rem 0;
+    border-top:1px solid rgba(246,242,231,0.18);
+    font-size:0.85rem; color:#BFD0BC;
+  }
+
+  /* --- Responsive --- */
+  @media (max-width:760px){
+    .hero__inner{grid-template-columns:1fr;}
+    .hero__pond{display:none;}
+    .lieu-grid{grid-template-columns:1fr;}
+    .footer__inner{grid-template-columns:1fr;}
+  }
 </style>
 </head>
 <body>
-<header>
-<h1>DSI Juin 2026 : Vos projets !</h1>
-<p>Cliquez sur un indicateur pour filtrer les projets</p>
+
+<a class="skip-link" href="#contenu">Aller au contenu principal</a>
+
+<header class="hero">
+  <div class="hero__inner">
+    <div>
+      <div class="hero__brand">
+        <img class="hero__logo" src="logo.png" alt="Logo de Christelle FROG, organisme de formation" onerror="this.style.display='none'">
+        <span class="hero__brand-name">Christelle FROG · Organisme de formation</span>
+      </div>
+      <h1 class="hero__title">Le monde des grenouilles</h1>
+      <p class="hero__tagline">Une immersion complète dans la biologie, les habitats et la conservation des amphibiens.</p>
+      <dl class="hero__meta">
+        <div>
+          <dt>Date</dt>
+          <dd>7 septembre 2026</dd>
+        </div>
+        <div>
+          <dt>Lieu</dt>
+          <dd>Pessac (33)</dd>
+        </div>
+      </dl>
+      <a class="btn btn--primary" href="#programme">Découvrir le programme</a>
+    </div>
+
+    <svg class="hero__pond" viewBox="0 0 420 320" aria-hidden="true" focusable="false">
+      <circle class="ripple ripple--1" cx="150" cy="235" r="35"></circle>
+      <circle class="ripple ripple--2" cx="150" cy="235" r="60"></circle>
+      <circle class="ripple ripple--3" cx="150" cy="235" r="88"></circle>
+
+      <ellipse cx="300" cy="252" rx="62" ry="15" fill="#3F6B45"></ellipse>
+      <polygon points="300,252 332,244 332,260" fill="#1F3D2E"></polygon>
+
+      <ellipse cx="287" cy="222" rx="32" ry="24" fill="#8FAE7C"></ellipse>
+      <ellipse cx="265" cy="206" rx="15" ry="12" fill="#8FAE7C"></ellipse>
+      <circle cx="260" cy="195" r="6.5" fill="#8FAE7C"></circle>
+      <circle cx="273" cy="194" r="6.5" fill="#8FAE7C"></circle>
+      <circle cx="260" cy="195" r="2.6" fill="#1F3D2E"></circle>
+      <circle cx="273" cy="194" r="2.6" fill="#1F3D2E"></circle>
+      <ellipse cx="253" cy="230" rx="9" ry="5.5" fill="#8FAE7C" transform="rotate(-25 253 230)"></ellipse>
+      <path d="M312 228 q18 -10 22 9 q-13 7 -22 -9 Z" fill="#8FAE7C"></path>
+    </svg>
+  </div>
 </header>
 
-<div class="container">
+<nav class="page-nav" aria-label="Navigation de la page">
+  <div class="page-nav__inner">
+    <a href="#programme">Programme</a>
+    <a href="#formateur">La formatrice</a>
+    <a href="#lieu">Lieu &amp; date</a>
+    <a href="#telechargements">Téléchargements</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
 
-<input type="text" id="searchInput" placeholder="Rechercher un projet..." onkeyup="searchProjects()">
+<main id="contenu">
 
-<div class="cards">
-<div class="card" onclick="filterProjects('all','Tous les projets')"><h2>24</h2><p>Projets</p></div>
-<div class="card" onclick="filterProjects('termine','Projets terminés')"><h2 id="termineCount">8</h2><p>Terminés</p></div>
-<div class="card" onclick="filterProjects('encours','Projets en cours')"><h2 id="encoursCount">14</h2><p>En cours</p></div>
-<div class="card" onclick="filterProjects('risque','Projets à surveiller')"><h2 id="risqueCount">2</h2><p>À surveiller</p></div>
-</div>
+  <section id="programme" class="section" aria-labelledby="programme-titre">
+    <div class="conteneur">
+      <p class="eyebrow">Programme de formation</p>
+      <h2 id="programme-titre">Six modules, du terrain à la théorie</h2>
+      <p class="section-intro">Chaque module s'appuie sur le précédent, jusqu'à un projet final de préservation d'une population de grenouilles.</p>
 
-<h2 id="title" style="margin-top:30px;">Tous les projets</h2>
+      <div class="accordion">
+        <details class="accordion__item" open>
+          <summary>
+            <span class="accordion__num">01</span>
+            <span>Introduction aux grenouilles</span>
+            <span class="accordion__chevron" aria-hidden="true">⌄</span>
+          </summary>
+          <div class="accordion__content"><p>Origines, classification et diversité des espèces.</p></div>
+        </details>
 
-<table id="projectsTable">
-<thead>
-<tr>
-<th>Domaine</th>
-<th>Projet</th>
-<th>Statut</th>
-<th>Échéance</th>
-</tr>
-</thead>
-<tbody>
-<tr data-status="encours"><td>DF</td><td>Dématérialisation des factures</td><td><span class="badge encours">En cours</span></td><td>Sept 2026</td></tr>
-<tr data-status="encours"><td>DF</td><td>EBT</td><td><span class="badge encours">En cours</span></td><td>Avr 2026</td></tr>
-<tr data-status="termine"><td>DF</td><td>Servantissimo</td><td><span class="badge termine">Terminé</span></td><td>-</td></tr>
-<tr data-status="risque"><td>DF</td><td>Interface GED-Toshiba</td><td><span class="badge risque">À surveiller</span></td><td>Nov 2026</td></tr>
-<tr data-status="risque"><td>DF</td><td>Ecritures miroirs</td><td><span class="badge risque">À surveiller</span></td><td>-</td></tr>
-<tr data-status="termine"><td>DF</td><td>Interface Gestionnaire vers portail finance</td><td><span class="badge termine">Terminé</span></td><td>Nov 2026</td></tr>
-<tr data-status="termine"><td>DRH</td><td>Mise à jour du moteur de paie</td><td><span class="badge termine">Terminé</span></td><td>Jan 2026</td></tr>
-<tr data-status="encours"><td>DF</td><td>Arrêt de la GED Toshiba</td><td><span class="badge encours">En cours</span></td><td>Déc 2026</td></tr>
-<tr data-status="encours"><td>DF</td><td>Migration Azure</td><td><span class="badge encours">En cours</span></td><td>2026</td></tr>
-<tr data-status="encours"><td>DF</td><td>WinAPF / Antares</td><td><span class="badge encours">En cours</span></td><td>-</td></tr>
-<tr data-status="termine"><td>DF</td><td>Talentia</td><td><span class="badge termine">Terminé</span></td><td>-</td></tr>
-<tr data-status="encours"><td>DF</td><td>Migration Gestionnaire</td><td><span class="badge encours">En cours</span></td><td>Déc 2026</td></tr>
-<tr data-status="encours"><td>DRH</td><td>GTA</td><td><span class="badge encours">En cours</span></td><td>En re-définition</td></tr>
-<tr data-status="termine"><td>DRH</td><td>Coffre Fort électronique</td><td><span class="badge termine">Terminé</span></td><td>Jan 2026</td></tr>
-<tr data-status="encours"><td>DRH</td><td>Roadmap SIRH</td><td><span class="badge encours">En cours</span></td><td>Juin 2026</td></tr>
-<tr data-status="encours"><td>DRH</td><td>HR4YOU</td><td><span class="badge encours">En cours</span></td><td>2026</td></tr>
-<tr data-status="termine"><td>DRH</td><td>Module ATIJ</td><td><span class="badge termine">Terminé</span></td><td>À définir</td></tr>
-<tr data-status="termine"><td>DRH</td><td>MAJ DSN</td><td><span class="badge termine">Terminé</span></td><td>Jan 2026</td></tr>
-<tr data-status="termine"><td>DRH</td><td>Maille nominative</td><td><span class="badge termine">Terminé</span></td><td>Jan 2026</td></tr>
-<tr data-status="encours"><td>DRH</td><td>Edition des contrats</td><td><span class="badge encours">En cours</span></td><td>-</td></tr>
-</tbody>
-</table>
+        <details class="accordion__item">
+          <summary>
+            <span class="accordion__num">02</span>
+            <span>Anatomie et physiologie</span>
+            <span class="accordion__chevron" aria-hidden="true">⌄</span>
+          </summary>
+          <div class="accordion__content"><p>Étude du cycle de vie, de la respiration et de la reproduction.</p></div>
+        </details>
 
-</div>
+        <details class="accordion__item">
+          <summary>
+            <span class="accordion__num">03</span>
+            <span>Habitats naturels</span>
+            <span class="accordion__chevron" aria-hidden="true">⌄</span>
+          </summary>
+          <div class="accordion__content"><p>Mares, étangs, zones humides et adaptation aux environnements.</p></div>
+        </details>
 
-<script>
-function filterProjects(status,title){
- document.getElementById('title').innerText=title;
- document.querySelectorAll('#projectsTable tbody tr').forEach(row=>{
-   row.style.display=(status==='all'||row.dataset.status===status)?'':'none';
- });
-}
+        <details class="accordion__item">
+          <summary>
+            <span class="accordion__num">04</span>
+            <span>Communication des amphibiens</span>
+            <span class="accordion__chevron" aria-hidden="true">⌄</span>
+          </summary>
+          <div class="accordion__content"><p>Chants, comportements sociaux et territorialité.</p></div>
+        </details>
 
-function searchProjects() {
-  const input = document.getElementById('searchInput');
-  const filter = input.value.toUpperCase();
-  const rows = document.querySelectorAll('#projectsTable tbody tr');
+        <details class="accordion__item">
+          <summary>
+            <span class="accordion__num">05</span>
+            <span>Conservation</span>
+            <span class="accordion__chevron" aria-hidden="true">⌄</span>
+          </summary>
+          <div class="accordion__content"><p>Menaces environnementales et programmes de protection.</p></div>
+        </details>
 
-  rows.forEach(row => {
-    const projectName = row.cells[1].textContent.toUpperCase();
-    if (projectName.includes(filter)) {
-      row.style.display = '';
-    } else {
-      row.style.display = 'none';
-    }
-  });
-}
+        <details class="accordion__item">
+          <summary>
+            <span class="accordion__num">06</span>
+            <span>Atelier pratique</span>
+            <span class="accordion__chevron" aria-hidden="true">⌄</span>
+          </summary>
+          <div class="accordion__content"><p>Observation de terrain et identification des espèces.</p></div>
+        </details>
 
-// Mettre à jour les compteurs de projets
-const termineCount = document.querySelectorAll('#projectsTable tbody tr[data-status="termine"]').length;
-const encoursCount = document.querySelectorAll('#projectsTable tbody tr[data-status="encours"]').length;
-const risqueCount = document.querySelectorAll('#projectsTable tbody tr[data-status="risque"]').length;
+        <details class="accordion__item">
+          <summary>
+            <span class="accordion__num">EF</span>
+            <span>Évaluation finale</span>
+            <span class="accordion__chevron" aria-hidden="true">⌄</span>
+          </summary>
+          <div class="accordion__content"><p>Réalisation d'un projet consistant à concevoir un plan de préservation d'une population de grenouilles dans une zone humide imaginaire.</p></div>
+        </details>
+      </div>
+    </div>
+  </section>
 
-document.getElementById('termineCount').innerText = termineCount;
-document.getElementById('encoursCount').innerText = encoursCount;
-document.getElementById('risqueCount').innerText = risqueCount;
-</script>
+  <section id="formateur" class="section section--sombre" aria-labelledby="formateur-titre">
+    <div class="conteneur">
+      <p class="eyebrow eyebrow--clair">La formatrice</p>
+      <h2 id="formateur-titre">Le mot de Christelle FROG</h2>
+      <p class="section-intro" style="color:#D9E4D5;">Quelques mots avant de se lancer dans cette formation.</p>
+      <div class="video-frame">
+        <iframe
+          src="https://www.youtube.com/embed/6fvClPXLxvk"
+          title="Mot d'introduction de la formatrice Christelle FROG"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <section id="lieu" class="section" aria-labelledby="lieu-titre">
+    <div class="conteneur">
+      <p class="eyebrow">Où et quand ?</p>
+      <h2 id="lieu-titre">Rendez-vous le 7 septembre 2026 à Pessac</h2>
+      <div class="lieu-grid">
+        <div class="lieu-info">
+          <p><strong>Date</strong><br>Lundi 7 septembre 2026</p>
+          <p><strong>Adresse</strong><br>6 Avenue Paul Langevin<br>33600 Pessac</p>
+        </div>
+        <div class="map-frame">
+          <iframe
+            src="https://www.google.com/maps?q=6+Avenue+Paul+Langevin,+33600+Pessac,+France&output=embed"
+            title="Carte : 6 Avenue Paul Langevin, 33600 Pessac"
+            loading="lazy">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="telechargements" class="section section--teinte" aria-labelledby="telechargements-titre">
+    <div class="conteneur">
+      <p class="eyebrow">Téléchargements</p>
+      <h2 id="telechargements-titre">Emportez le programme avec vous</h2>
+      <div class="telechargements-zone">
+        <a class="btn btn--telecharger" href="programme.pdf" download>
+          <span aria-hidden="true">⬇</span> Télécharger le programme complet (PDF)
+        </a>
+        <p class="eco-note">Pensez à n'imprimer ce document qu'en cas de besoin réel.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer" id="contact">
+  <div class="footer__inner">
+    <div>
+      <p class="footer__heading">Contact</p>
+      <p>Christelle FROG<br>Organisme de formation</p>
+      <p><a href="tel:0557900658">05 57 90 06 58</a></p>
+    </div>
+    <div>
+      <p class="footer__heading">Accessibilité</p>
+      <!-- TODO : remplacer "#" par l'URL réelle de la politique d'inclusion et de gestion du handicap dès qu'elle sera disponible -->
+      <p><a href="#">Politique d'inclusion et de gestion du handicap</a></p>
+    </div>
+  </div>
+  <div class="footer__bas">
+    © 2026 Christelle FROG — Le monde des grenouilles
+  </div>
+</footer>
 
 </body>
 </html>
